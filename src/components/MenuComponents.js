@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
+import dateFormat from 'dateformat';
 
 
 class Menu extends Component {
@@ -8,22 +9,25 @@ class Menu extends Component {
         super(props);
 
         this.state = {
-            selectedDish: null,
+            selectedStaff: null,
         };
     }
-        onDishSelect(dish){
-            this.setState({selectedDish: dish});
+        onDishSelect(staff){
+            this.setState({selectedStaff: staff});
         }
-        renderDish(dish){
-            if(dish != null){
+        renderDish(staff){
+            if(staff != null){
                 return (
-                    <Card>
-                        <CardImg width='100%' src={dish.image} alt={dish.name}></CardImg>
-                        <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                        </CardBody>
+                    <div className='col-12 col-md-6 col-lg-4 mt-1'>
+                    <Card >
+                        <CardTitle><strong>Họ và tên: {staff.name}</strong></CardTitle>
+                        <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
+                        <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
+                        <CardText>Bộ phận: {staff.department.name}</CardText>
+                        <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
+                        <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                     </Card>
+                    </div>
                 );
 
             }else{
@@ -34,28 +38,29 @@ class Menu extends Component {
     
     render(){
 
-        const menu = this.props.dishes.map((dish) =>{
+        const menu = this.props.staffs.map((staff) =>{
             return (
-                <div key={dish.id} className='col-12 col-md-5 m-1'>
-                    <Card onClick={() => this.onDishSelect(dish)}>
-                    <CardImg width='100%' src={dish.image} alt={dish.name}></CardImg>
-                    <CardImgOverlay>
-                        <CardTitle>{dish.name}</CardTitle>
-                    </CardImgOverlay>
-                     
+                <div key={staff.id} className='col-12 col-md-6 col-lg-4 mt-1'>
+                    <Card onClick={() => this.onDishSelect(staff)}>
+                        <CardTitle>
+                            {staff.name}
+                        </CardTitle>
+                
                     </Card>
                 </div>
             )
         });
-    
         return (
             <div className='container'>
                 <div className='row'>
                      {menu}
+                     <p>Nhấn vào tên nhân viên để xem thông tin</p>
                 </div>
+
                 <div className='row'>
-                    {this.renderDish(this.state.selectedDish)}
+                     {this.renderDish(this.state.selectedStaff)}
                 </div>
+                
             </div>
         );
     }
