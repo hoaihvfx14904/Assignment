@@ -18,6 +18,13 @@ class Main extends Component {
       department: DEPARTMENTS
     }
   }
+  updateState(staff) {
+    const currentStaffs = this.state.staffs;
+    this.setState({
+      staffs: currentStaffs.concat([staff]),
+    });
+    localStorage.setItem("Staffs", JSON.stringify(currentStaffs.concat([staff])));
+  }
   render(){
   const DepartmentPage = () => {
     return(
@@ -35,7 +42,11 @@ class Main extends Component {
       <Header />
          <Switch>
              <Route path='/department' component={DepartmentPage} />
-             <Route exact path='/staff' component={() => <StaffList staffs={this.state.staffs}  />} />
+             <Route exact path='/staff' component={() => <StaffList
+                  staffs={this.state.staffs}
+                  
+                  updateState={(newStaff) => this.updateState(newStaff)}
+                />} />
              <Route path='/staff/:id' component={StaffWithId} />
              <Route path='/salary' component={() => <Salary staffs={this.state.staffs} />} />
             
