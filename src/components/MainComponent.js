@@ -1,7 +1,7 @@
 
 import React, { Component} from 'react';
 import {DEPARTMENTS, STAFFS} from '../shared/staffs.js';
-import Staff from './StaffComponent.js';
+import StaffList from './StaffComponent.js';
 import Department from './DepartmentComponent.js';
 import StaffDetail from './StaffdetailComponent';
 import Header from './HeaderComponent.js';
@@ -35,7 +35,7 @@ class Main extends Component {
       <Header />
          <Switch>
              <Route path='/department' component={DepartmentPage} />
-             <Route exact path='/staff' component={() => <Staff staffs={this.state.staffs} />} />
+             <Route exact path='/staff' component={() => <StaffList staffs={this.state.staffs}  />} />
              <Route path='/staff/:id' component={StaffWithId} />
              <Route path='/salary' component={() => <Salary staffs={this.state.staffs} />} />
             
