@@ -10,7 +10,7 @@ const maxlength = (len) => (value) => !(value) || (value.length <= len);
 const isNumber = (value) => !(value) ||!isNaN(Number(value));
 
 //
-const StaffList = ({ staffs , updateState, isLoading, err}) => {
+const StaffList = ({ staffs , postStaff, isLoading, err}) => {
 
   // set state
   const [Name, setName] = useState(null);
@@ -76,18 +76,17 @@ const StaffList = ({ staffs , updateState, isLoading, err}) => {
         id: staffs.length,
         name: values.name,
         doB: doB,
-        startDate: startDate,
-        department: {
-            name: values.department},
         salaryScale: values.salaryScale,
+        startDate: startDate,
+        departmentId: values.department,
         annualLeave: values.annualLeave,
         overTime: values.overTime,
-        image: "/assets/images/alberto.png",
+        image: "/asset/images/alberto.png",
       };
   
       setModalOpen(!modalOpen);
   
-      updateState(newStaff);
+      postStaff(newStaff);
   };
 
   // return function

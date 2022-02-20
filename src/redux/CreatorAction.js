@@ -102,3 +102,32 @@ export const salaryFailed =(errmess) => ({
     type: ActionTypes.SALARY_FAIL,
     payload: errmess
 })
+
+// add staff
+
+export const postStaff = (newStaff) => (dispatch) => {
+
+    return fetch(url + 'staffs', {
+        method: "POST",
+        body: JSON.stringify(newStaff),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => dispatch(addStaff(response)))
+    .catch(error =>  { console.log('post staff', error.message); alert('Your staff could not be posted\nError: '+error.message); });
+};

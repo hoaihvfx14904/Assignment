@@ -7,7 +7,7 @@ import Header from './HeaderComponent.js';
 import Footer from './FooterComponent.js';
 import Salary from './SalaryComponent.js';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
-import { fetchStaff, fetchDepartment, fetchSalary } from '../redux/CreatorAction.js';
+import { fetchStaff, fetchDepartment, fetchSalary, postStaff } from '../redux/CreatorAction.js';
 import { connect } from 'react-redux';
 import DepartmentDetail from './DepartmentDetail.js';
 
@@ -20,6 +20,7 @@ const mapStateToProps = state => {
   })
 }
 const mapDispatchToProps = (dispatch) => ({
+  postStaff: (newStaff) => {dispatch(postStaff(newStaff))},
   fetchStaff : () => {dispatch(fetchStaff())},
   fetchDepartment : () => {dispatch(fetchDepartment())},
   fetchSalary : () => {dispatch(fetchSalary())},
@@ -75,7 +76,7 @@ class Main extends Component {
                   staffs={this.props.staffs.staffs}
                   isLoading={this.props.staffs.isLoading}
                   err={this.props.staffs.err}
-                  /* updateState={(newStaff) => this.updateState(newStaff)} */
+                  postStaff={(newStaff) => this.props.postStaff(newStaff)}
                 />} />
              <Route path='/staff/:id' component={StaffWithId} />
              <Route path='/salary' component={() => <Salary 
