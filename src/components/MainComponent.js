@@ -7,34 +7,47 @@ import StaffDetail from './StaffdetailComponent';
 import Header from './HeaderComponent.js';
 import Footer from './FooterComponent.js';
 import Salary from './SalaryComponent.js';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
+import { fetchStaff, fetchDepartment } from '../redux/CreatorAction.js';
+import { connect } from 'react-redux';
+
+
+const mapStateToProps = state => {
+  
+  return ({
+    staffs: state.staffs,
+    department: state.department
+  })
+}
+const mapDispatchToProps = (dispatch) => ({
+  fetchStaff : () => {dispatch(fetchStaff())},
+  fetchDepartment : () => {dispatch(fetchDepartment())},
+})
 
 class Main extends Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      staffs: STAFFS,
-      department: DEPARTMENTS
-    }
+  componentWillMount() {
+    this.props.fetchStaff();
+    this.props.fetchDepartment();
   }
-  updateState(staff) {
-    const currentStaffs = this.state.staffs;
+  
+
+  /* updateState(staff) {
+    const currentStaffs = this.props.staffs;
     this.setState({
       staffs: currentStaffs.concat([staff]),
     });
     localStorage.setItem("Staffs", JSON.stringify(currentStaffs.concat([staff])));
-  }
+  } */
   render(){
   const DepartmentPage = () => {
     return(
-        <Department department={this.state.department} />
+        <Department department={this.props.department.department} />
     );
   }
   const StaffWithId = ({match}) => {
-    console.log(match.params.id)
     return(
-        <StaffDetail staff={this.state.staffs.filter((staff) => staff.id === parseInt(match.params.id,10))[0]} />
+        <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.id,10))[0]} />
     );
   };
   return (
@@ -43,12 +56,13 @@ class Main extends Component {
          <Switch>
              <Route path='/department' component={DepartmentPage} />
              <Route exact path='/staff' component={() => <StaffList
-                  staffs={this.state.staffs}
-                  
-                  updateState={(newStaff) => this.updateState(newStaff)}
+                  staffs={this.props.staffs.staffs}
+                  isLoading={this.props.staffs.isLoading}
+                  err={this.props.staff.err}
+                  /* updateState={(newStaff) => this.updateState(newStaff)} */
                 />} />
              <Route path='/staff/:id' component={StaffWithId} />
-             <Route path='/salary' component={() => <Salary staffs={this.state.staffs} />} />
+             <Route path='/salary' component={() => <Salary staffs={this.props.staffs.staffs} />} />
             
              <Redirect to='/staff' />
          </Switch>
@@ -58,4 +72,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

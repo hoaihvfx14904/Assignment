@@ -17,15 +17,17 @@ function RenderSalary ({staff}) {
     );
 }
    
-    const Salary = (props) => {
-        const menu = props.staffs.map((staff) =>{
+    const Salary = ({staffs}) => {
+        if(staffs.length === 0){
+            return <div></div>
+        } else {
+        const menu = staffs.map((staff) =>{
             return (
                 <div key={staff.id} className='col-12 col-md-6 col-lg-4 mt-3'>
                     <RenderSalary staff={staff}  />
                 </div>
             )
         });
-    
         return (
             <div className="container">
                 <div className="row">
@@ -39,6 +41,7 @@ function RenderSalary ({staff}) {
                 </div>
             </div>
         );
+        }
 
 
 }

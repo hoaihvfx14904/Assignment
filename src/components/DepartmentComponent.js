@@ -9,8 +9,11 @@ function RenderCard({item}) {
             </Card>
             );  
 }
-function Department (props) {
-    const dpm = props.department.map((item) =>{
+function Department ({department}) {
+    if(department.length === 0){
+        return <div></div>
+    } else {
+    const dpm = department.map((item) =>{
     return (
         <div className='col-12 col-md-6 col-lg-4 mb-2 mt-2' >
             <RenderCard item={item} />
@@ -23,5 +26,6 @@ function Department (props) {
             </div>
         </div>
     )   
+}
 }
 export default Department;

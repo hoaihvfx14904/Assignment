@@ -3,12 +3,15 @@ import {
   Card, CardImg, CardText,  Button, Modal, ModalHeader, ModalBody, Label, Row, Col} from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { Loading } from "./LoadingComponent";
 
 const required = (value) => value && value.length > 0 ;
 const maxlength = (len) => (value) => !(value) || (value.length <= len);
 const isNumber = (value) => !(value) ||!isNaN(Number(value));
 
-const StaffList = ({ staffs , updateState}) => {
+//
+const StaffList = ({ staffs , updateState, isLoading, err}) => {
+
   // set state
   const [Name, setName] = useState(null);
   const [SEARCH, setSEARCH] = useState(null);
@@ -17,9 +20,16 @@ const StaffList = ({ staffs , updateState}) => {
   const [startDate, setstartDate] = useState('');
 
   const [modalOpen, setModalOpen] = useState(false);
-
+ // loading
+ const LOADING = <Loading />
+ const ERR = {err}; 
+ 
   // render staff list
+  
   const STAFFS = staffs.map((staff) => {
+    if(staff.length === 0){
+      return <div></div>
+    } else {
     return (
       <Link
         to={`/staff/${staff.id}`}
@@ -34,8 +44,9 @@ const StaffList = ({ staffs , updateState}) => {
         </div>
       </Link>
     );
+    }
   });
-
+  
   // render search by name results
   const handleSearch = (event, Name) => {
     event.preventDefault();
@@ -123,7 +134,7 @@ const StaffList = ({ staffs , updateState}) => {
       <hr></hr>
       <div className="row">   {/* Điều kiện render */}
         {SEARCH === null
-          ? STAFFS
+          ? isLoading ? LOADING: err ? ERR : STAFFS
           : SEARCH.length == 0
           ? "Không tìm thấy nhân viên nào"
           : SEARCH}
