@@ -1,11 +1,12 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardTitle} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 function RenderSalary ({staff}) {
     const basicSalary = 3000000;
     const overTimeSalary = 200000;
-    let salary = (staff.salaryScale * basicSalary) + (staff.overTime * overTimeSalary);
+    let salary = parseInt((staff.salaryScale * basicSalary) + (staff.overTime * overTimeSalary));
     return (
         <Card> 
                 <h3>{staff.name}</h3>
@@ -17,8 +18,12 @@ function RenderSalary ({staff}) {
     );
 }
    
-    const Salary = ({staffs}) => {
-        if(staffs.length == 0){
+    const Salary = ({staffs, isLoading, err}) => {
+        if(isLoading){
+            return <Loading></Loading>
+        } else if( err){
+            return <div>{err}</div>
+        } else if(staffs.length == 0){
             return <div></div>
         } else {
         const menu = staffs.map((staff) =>{

@@ -9,7 +9,7 @@ class Header extends Component{
                     <div className="container">
                         <Nav navbar>
                             <NavbarBrand className="mr-auto" href="/" >
-                                <img src="assets/images/logo.png" height="30" width="41" alt="Resibon" />
+                                <img src="asset/images/logo.png" height="30" width="41" alt="Resibon" />
                             </NavbarBrand>
                             <NavItem>
                                 <NavLink className="nav-link" to="/staff" >

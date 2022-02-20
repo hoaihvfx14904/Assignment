@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
                         <CardTitle className='css-staff'><strong>Họ và tên: {staff.name}</strong></CardTitle>
                         <CardText className='css-staff'>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
                         <CardText className='css-staff'>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
-                        <CardText className='css-staff'>Bộ phận: {staff.department.name}</CardText>
+                        <CardText className='css-staff'>Bộ phận: {staff.departmentId}</CardText>
                         <CardText className='css-staff'>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                         <CardText className='css-staff'>Số ngày đã làm thêm: {staff.overTime}</CardText>
                     </Card>

@@ -15,10 +15,8 @@ const StaffList = ({ staffs , updateState, isLoading, err}) => {
   // set state
   const [Name, setName] = useState(null);
   const [SEARCH, setSEARCH] = useState(null);
-
   const [doB, setdoB] = useState('');
   const [startDate, setstartDate] = useState('');
-
   const [modalOpen, setModalOpen] = useState(false);
  // loading
  const LOADING = <Loading />
@@ -33,7 +31,7 @@ const StaffList = ({ staffs , updateState, isLoading, err}) => {
     return (
       <Link
         to={`/staff/${staff.id}`}
-        className="col col-6 col-md-4 col-lg-2 text-dark mb-2"
+        className="col-6 col-md-4 col-lg-2 text-dark mb-2"
         style={{ textDecoration: "none" }}
       >
         <div key={staff.id}>
@@ -60,19 +58,13 @@ const StaffList = ({ staffs , updateState, isLoading, err}) => {
         }
       })
       .map((staff) => {
-        return (
-          <Link
-            to={`/staff/${staff.id}`}
-            className="col col-6 col-md-4 col-lg-2 text-dark mb-2"
-            style={{ textDecoration: "none" }}
-          >
-            <div key={staff.id}>
+        return ( 
+            <div key={staff.id} className='col-6 col-md-4 col-lg-2 text-dark mb-2'>
               <Card tag="li" className="mt-2 p-1">
                 <CardImg src={staff.image}></CardImg>
                 <CardText>{staff.name}</CardText>
               </Card>
             </div>
-          </Link>
         );
       });
     setSEARCH(dataSearch);
