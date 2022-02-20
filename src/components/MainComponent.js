@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
   
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchStaff();
     this.props.fetchDepartment();
   }
@@ -58,7 +58,7 @@ class Main extends Component {
              <Route exact path='/staff' component={() => <StaffList
                   staffs={this.props.staffs.staffs}
                   isLoading={this.props.staffs.isLoading}
-                  err={this.props.staff.err}
+                  err={this.props.staffs.err}
                   /* updateState={(newStaff) => this.updateState(newStaff)} */
                 />} />
              <Route path='/staff/:id' component={StaffWithId} />

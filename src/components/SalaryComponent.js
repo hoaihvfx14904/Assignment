@@ -18,7 +18,7 @@ function RenderSalary ({staff}) {
 }
    
     const Salary = ({staffs}) => {
-        if(staffs.length === 0){
+        if(staffs.length == 0){
             return <div></div>
         } else {
         const menu = staffs.map((staff) =>{
