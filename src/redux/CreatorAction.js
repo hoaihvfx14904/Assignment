@@ -1,6 +1,7 @@
 import { url } from "../shared/url";
 import * as ActionTypes from './ActionTypes'
 
+// staff 
 export const fetchStaff = () => (dispatch) => {
     dispatch(staffLoading());
     return fetch(url + 'staffs')
@@ -36,7 +37,6 @@ export const staffFailed =(errmess) => ({
 })
 
 // department 
-
 export const fetchDepartment = () => (dispatch) => {
     return fetch(url + 'departments')
     .then(response => {
@@ -68,7 +68,6 @@ export const departmentFailed =(errmess) => ({
 })
 
 // salary 
-
 export const fetchSalary = () => (dispatch) => {
     dispatch(salaryLoading());
     return fetch(url + 'staffsSalary')
@@ -104,7 +103,6 @@ export const salaryFailed =(errmess) => ({
 })
 
 // add staff
-
 export const postStaff = (newStaff) => (dispatch) => {
 
     return fetch(url + 'staffs', {
@@ -130,4 +128,54 @@ export const postStaff = (newStaff) => (dispatch) => {
     .then(response => response.json())
     .then(response => dispatch(addStaff(response)))
     .catch(error =>  { console.log('post staff', error.message); alert('Your staff could not be posted\nError: '+error.message); });
+};
+
+//delete 
+export const deleteStaff = (id) => (dispatch) => {
+   console.log(id)
+    return fetch(url + `staffs/${id}`, {
+        method: "DELETE",
+        })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => dispatch(addStaff(response)))
+    .catch(error =>  { console.log('delete staff', error.message); alert('Your staff could not be delete\nError: '+error.message); });
+};
+
+//update  infor staff
+export const updateStaff = (dataUpdate, id) => (dispatch) => {
+    return fetch(url + 'staffs', {
+        method: "PATCH",
+        body: JSON.stringify(dataUpdate),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => dispatch(addStaff(response)))
+    .catch(error =>  { console.log('update staff', error.message); alert('Your staff could not be update\nError: '+error.message); });
 };

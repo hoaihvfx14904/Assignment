@@ -9,7 +9,7 @@ const required = (value) => value && value.length > 0 ;
 const maxlength = (len) => (value) => !(value) || (value.length <= len);
 const isNumber = (value) => !(value) ||!isNaN(Number(value));
 
-//
+//-- Stafflist
 const StaffList = ({ staffs , postStaff, isLoading, err}) => {
 
   // set state
@@ -23,14 +23,13 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
  const ERR = {err}; 
  
   // render staff list
-  
   const STAFFS = staffs.map((staff) => {
     if(staff.length === 0){
       return <div></div>
     } else {
     return (
       <Link
-        to={`/staff/${staff.id}`}
+        to={`/staffs/${staff.id}`}
         className="col-6 col-md-4 col-lg-2 text-dark mb-2"
         style={{ textDecoration: "none" }}
       >
@@ -70,6 +69,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
     setSEARCH(dataSearch);
     Name.value = "";
   };
+
   // submit add staff
   const handleSubmit =(values) =>{
     const newStaff = {
@@ -83,13 +83,11 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
         overTime: values.overTime,
         image: "/asset/images/alberto.png",
       };
-  
       setModalOpen(!modalOpen);
-  
       postStaff(newStaff);
   };
 
-  // return function
+  // return function stafflist
   return (
     <div className="container">
       <div className="row mb-1">
@@ -130,7 +128,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
           ? "Không tìm thấy nhân viên nào"
           : SEARCH}
       </div>
-     {/*  Modal */}
+     {/*  Modal add staff */}
       <div className="row">
           <Modal isOpen={modalOpen}
                  toggle={(modalOpen) => setModalOpen(!modalOpen)}

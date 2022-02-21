@@ -5,8 +5,7 @@ import dateFormat from 'dateformat';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Control, LocalForm, Errors } from "react-redux-form";
-import { url } from '../shared/url';
+import { Control, LocalForm, } from "react-redux-form";
 
 
      function   RenderImage({staff}){
@@ -38,45 +37,46 @@ import { url } from '../shared/url';
                 return <div></div>;
             }
     }  
+
+    // -----Staffdetail
     const StaffDetail = (props) =>{
 
-        const [doB, setdoB] = useState('');
-        const [startDate, setstartDate] = useState('');
+        const [doB, setdoB] = useState(props.staff.doB);
+        const [startDate, setstartDate] = useState(props.staff.startDate);
 
         const [modalOpen, setModalOpen] = useState(false);
+        const [modalDeleOpen, setModalDeleOpen] = useState(false);
 
+        // handle update info staff
         const handleSubmit =(values) =>{
             setModalOpen(!modalOpen);
-            const neStaff = {
-                image: "/asset/images/alberto.png",
-              };
-            return fetch(url + 'staffs', {
-                method: "PATCH",
-                body: JSON.stringify(neStaff),
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                credentials: "same-origin"
-            })
-            .then(response => {
-                if (response.ok) {
-                  return response;
-                } else {
-                  var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                  error.response = response;
-                  throw error;
-                }
-              },
-              error => {
-                    throw error;
-              })
-            .catch(error =>  { console.log('post staff', error.message); alert('Your staff could not be posted\nError: '+error.message); });
-        
-             
-
+            const id = props.staff.id ;
+            const dataUpdate = {
+                id: id,
+                name: values.name,
+                doB: doB,
+                startDate: startDate,
+                salaryScale: values.salaryScale,
+                departmentId: values.department,
+                annualLeave: values.annualLeave,
+                overTime: values.overTime,
+            };
+            console.log(dataUpdate);
+        return props.updateStaff(dataUpdate, id);
         }
 
+        // handle delete function
+        const handleDelete =() =>{
+            setModalDeleOpen(!modalDeleOpen)
+            props.deleteStaff(props.staff.id);
+        }
 
+        // handele cancel delete
+        const handleCancel =() => {
+            setModalDeleOpen(!modalDeleOpen)
+        }
+
+    // render component
         if(props.staff != null){
             return (
                 <div className="container">
@@ -92,22 +92,23 @@ import { url } from '../shared/url';
                     </div>
                     <div className="col-12 col-md-8 col-lg-9 ">
                         <RenderInfo staff={props.staff} />
-                        <Button onClick={() => setModalOpen(!modalOpen)}>Cập nhật thông tin</Button>
+                        <Button onClick={() => setModalOpen(!modalOpen)}>Cập nhật thông tin </Button>
+                        <Button className='ms-2' onClick={() => setModalDeleOpen(!modalDeleOpen)}>Xóa</Button>
                     </div>
                 </div>
-                {/*  Modal */}
+                {/*  Modal update */}
                 <div className="row">
                     <Modal isOpen={modalOpen}
                             toggle={(modalOpen) => setModalOpen(!modalOpen)}
                     >
-                        <ModalHeader>Thêm nhân viên</ModalHeader>
+                        <ModalHeader>Cập nhật thông tin nhân viên</ModalHeader>
                         <ModalBody>
                             <LocalForm onSubmit={(values) => handleSubmit(values)}>
                                 <Row className="mt-2">
                                     <Label htmlFor="name" md={3}>Tên</Label>
                                     <Col md={9}>
                                         <Control.text 
-                                            placeholder={props.staff.name}
+                                            defaultValue={props.staff.name}
                                             model=".name"
                                             id="name"
                                             name="name"
@@ -120,7 +121,7 @@ import { url } from '../shared/url';
                                     <Label md={3} htmlFor="doB">Ngày sinh</Label>
                                     <Col md={9}>
                                         <Control.text
-                                        placeholder={props.staff.doB}
+                                        defaultValue={props.staff.doB}
                                         type="date"
                                         model=".doB"
                                         id="doB"
@@ -137,7 +138,7 @@ import { url } from '../shared/url';
                                     <Label htmlFor="startDate" md={3}>Ngày bắt đầu</Label>
                                     <Col md={9}>
                                         <Control.text
-                                            placeholder={props.staff.startDate}
+                                            defaultValue={props.staff.startDate}
                                             model=".startDate"
                                             type="date"
                                             id="startDate"
@@ -173,7 +174,7 @@ import { url } from '../shared/url';
                                     <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
                                     <Col md={9}>
                                         <Control.text
-                                            placeholder={props.staff.salaryScale}
+                                            defaultValue={props.staff.salaryScale}
                                             model=".salaryScale"
                                             id="salaryScale"
                                             name="salaryScale"
@@ -187,7 +188,7 @@ import { url } from '../shared/url';
                                     <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
                                     <Col md={9}>
                                         <Control.text
-                                            placeholder={props.staff.annualLeave}
+                                            defaultValue={props.staff.annualLeave}
                                             model=".annualLeave"
                                             id="annualLeave"
                                             name="annualLeave"
@@ -201,7 +202,7 @@ import { url } from '../shared/url';
                                     <Label htmlFor="overTime" md={3}>Ngày làm thêm</Label>
                                     <Col md={9}>
                                         <Control.text
-                                            placeholder={props.staff.overTime}
+                                            defaultValue={props.staff.overTime}
                                             model=".overTime"
                                             id="overTime"
                                             name="overTime"
@@ -219,6 +220,31 @@ import { url } from '../shared/url';
                                     </Col>
                                 </Row>  
                             </LocalForm>
+                        </ModalBody>
+                    </Modal>
+                </div>
+                {/*  Modal dele */}
+                <div className='row'>
+                    <Modal isOpen={modalDeleOpen}
+                            toggle={(modalDeleOpen) => setModalDeleOpen(!modalDeleOpen)}
+                            className="w-25 h-25 position-absolute top-50 start-50 translate-middle"
+                    >
+                        <ModalBody>
+                            <Row>
+                                <Col md={12} >
+                                <p className='m-auto p-4'><strong>Bạn chắc chắn muốn xóa?</strong></p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={6}>
+                               <Link to="/menu">
+                                <Button onClick={() => handleDelete()} className='w-100 btn btn-info'>Yes</Button>
+                                </Link>
+                                </Col>
+                                <Col md={6}>
+                                <Button  onClick={() => handleCancel()} className='w-100 btn btn-info'>No</Button>
+                                </Col>
+                            </Row>
                         </ModalBody>
                     </Modal>
                 </div>

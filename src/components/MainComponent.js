@@ -7,7 +7,7 @@ import Header from './HeaderComponent.js';
 import Footer from './FooterComponent.js';
 import Salary from './SalaryComponent.js';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
-import { fetchStaff, fetchDepartment, fetchSalary, postStaff } from '../redux/CreatorAction.js';
+import { fetchStaff, fetchDepartment, fetchSalary, postStaff , deleteStaff, updateStaff} from '../redux/CreatorAction.js';
 import { connect } from 'react-redux';
 import DepartmentDetail from './DepartmentDetail.js';
 
@@ -21,6 +21,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => ({
   postStaff: (newStaff) => {dispatch(postStaff(newStaff))},
+  deleteStaff: (id) => {dispatch(deleteStaff(id))},
+  updateStaff: (dataUpdate, id) => {dispatch(updateStaff(dataUpdate, id))},
   fetchStaff : () => {dispatch(fetchStaff())},
   fetchDepartment : () => {dispatch(fetchDepartment())},
   fetchSalary : () => {dispatch(fetchSalary())},
@@ -33,15 +35,7 @@ class Main extends Component {
     this.props.fetchDepartment();
     this.props.fetchSalary();
   }
-  
 
-  /* updateState(staff) {
-    const currentStaffs = this.props.staffs;
-    this.setState({
-      staffs: currentStaffs.concat([staff]),
-    });
-    localStorage.setItem("Staffs", JSON.stringify(currentStaffs.concat([staff])));
-  } */
   render(){
   const DepartmentPage = () => {
     return(
@@ -51,14 +45,17 @@ class Main extends Component {
          />
     );
   }
+
   const StaffWithId = ({match}) => {
-    
     return(
-        <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.id,10))[0]} />
+        <StaffDetail 
+        updateStaff={(dataUpdate, id) => this.props.updateStaff(dataUpdate, id)}
+        deleteStaff={(id) => this.props.deleteStaff(id)}
+        staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.id,10))[0]} />
     );
   };
-  const StaffWithDpmId = ({match}) => {
 
+  const StaffWithDpmId = ({match}) => {
     return(
         <DepartmentDetail 
         staffs={this.props.staffs.staffs.filter((staff) => staff.departmentId.indexOf(match.params.id) !== -1)} 
@@ -66,6 +63,7 @@ class Main extends Component {
         />
     );
   };
+  // return class main
   return (
     <div className='App'>
       <Header />
@@ -73,17 +71,19 @@ class Main extends Component {
              <Route path='/department/:id' component={StaffWithDpmId} />
              <Route path='/department' component={DepartmentPage} />
              <Route exact path='/staff' component={() => <StaffList
-                  staffs={this.props.staffs.staffs}
-                  isLoading={this.props.staffs.isLoading}
-                  err={this.props.staffs.err}
-                  postStaff={(newStaff) => this.props.postStaff(newStaff)}
-                />} />
-             <Route path='/staff/:id' component={StaffWithId} />
+                    staffs={this.props.staffs.staffs}
+                    isLoading={this.props.staffs.isLoading}
+                    err={this.props.staffs.err}
+                    postStaff={(newStaff) => this.props.postStaff(newStaff)}
+                    />}
+               />
+             <Route path='/staffs/:id' component={StaffWithId} />
              <Route path='/salary' component={() => <Salary 
                     staffs={this.props.salary.salary} 
                     isLoading={this.props.salary.isLoading}
                     err={this.props.salary.err}
-                    />}/>
+                    />}
+              />
              <Redirect to='/staff' />
          </Switch>
       <Footer />
