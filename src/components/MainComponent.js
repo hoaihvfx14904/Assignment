@@ -10,6 +10,7 @@ import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
 import { fetchStaff, fetchDepartment, fetchSalary, postStaff , deleteStaff, updateStaff} from '../redux/CreatorAction.js';
 import { connect } from 'react-redux';
 import DepartmentDetail from './DepartmentDetail.js';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
   
@@ -67,6 +68,8 @@ class Main extends Component {
   return (
     <div className='App'>
       <Header />
+      <TransitionGroup>
+            <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
              <Route path='/department/:id' component={StaffWithDpmId} />
              <Route path='/department' component={DepartmentPage} />
@@ -86,6 +89,8 @@ class Main extends Component {
               />
              <Redirect to='/staff' />
          </Switch>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
     </div>
   );
