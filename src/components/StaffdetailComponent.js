@@ -154,7 +154,7 @@ import { Control, LocalForm, } from "react-redux-form";
                                 <Row className="mt-2">
                                     <Label htmlFor="department" md={3}>Bộ phận</Label>
                                     <Col md={9}>
-                                        <Control.select
+                                        <Control.Select
 
                                             model=".department"
                                             id="department"
@@ -167,7 +167,7 @@ import { Control, LocalForm, } from "react-redux-form";
                                         <option>Dept03</option>
                                         <option>Dept04</option>
                                         <option>Dept05</option>
-                                        </Control.select>
+                                        </Control.Select>
                                     </Col>
                                 </Row>
                                 <Row className="mt-2">
