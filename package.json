@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "homepage": "http://hoaihvfx14904.github.io/assignment",
-=======
-  "homepage": "https://hoaihvfx14904.github.io/assignment",
->>>>>>> fe88255 (fix)
   "name": "my-react-app",
   "version": "0.1.0",
   "private": true,
