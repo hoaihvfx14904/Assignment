@@ -124,7 +124,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
       <div className="row">   {/* Điều kiện render */}
         {SEARCH === null
           ? isLoading ? LOADING: err ? ERR : STAFFS
-          : SEARCH.length == 0
+          : SEARCH.length === 0
           ? "Không tìm thấy nhân viên nào"
           : SEARCH}
       </div>
@@ -139,13 +139,13 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                           <Label htmlFor="name" md={3}>Tên</Label>
                           <Col md={9}>
-                              <Control.text 
+                              <Control.Text 
                                 model=".name"
                                 id="name"
                                 name="name"
                                 className="form-control" 
                                 validators={{required, maxLength : maxlength(15)}}
-                                ></Control.text>
+                                ></Control.Text>
                                 <Errors 
                                 model=".name"
                                 show={(field) => field.touched && !field.focus}
@@ -160,7 +160,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                           <Label md={3} htmlFor="doB">Ngày sinh</Label>
                           <Col md={9}>
-                            <Control.text
+                            <Control.Text
                                type="date"
                                model=".doB"
                                id="doB"
@@ -169,7 +169,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                                onChange={(event) =>setdoB(event.target.value)}
                                className="form-control"
                                validators={{required}}
-                               ></Control.text>
+                               ></Control.Text>
                                <Errors
                                 model=".doB"
                                 show={(field) => field.touched && !field.focus}
@@ -183,7 +183,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                           <Label htmlFor="startDate" md={3}>Ngày bắt đầu</Label>
                           <Col md={9}>
-                            <Control.text
+                            <Control.Text
                                 model=".startDate"
                                 type="date"
                                 id="startDate"
@@ -192,7 +192,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                                 value={startDate}
                                 onChange={(event) => setstartDate(event.target.value)}
                                 validators={{required}}
-                            ></Control.text>
+                            ></Control.Text>
                             <Errors
                                 model=".startDate"
                                 show={(field) => field.touched && !field.focus}
@@ -206,7 +206,7 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                         <Label htmlFor="department" md={3}>Bộ phận</Label>
                         <Col md={9}>
-                            <Control.select
+                            <Control.Select
                                 model=".department"
                                 id="department"
                                 name="department"
@@ -218,19 +218,19 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                             <option>Marketing</option>
                             <option>IT</option>
                             <option>Finance</option>
-                            </Control.select>
+                            </Control.Select>
                         </Col>
                     </Row>
                     <Row className="mt-2">
                         <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
                         <Col md={9}>
-                            <Control.text
+                            <Control.Text
                                 model=".salaryScale"
                                 id="salaryScale"
                                 name="salaryScale"
                                 className="form-control"
                                 validators={{ required, isNumber }}
-                            ></Control.text>
+                            ></Control.Text>
                             <Errors
                                 model=".salaryScale"
                                 show={(field) => field.touched && !field.focus}
@@ -245,13 +245,13 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                         <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
                         <Col md={9}>
-                            <Control.text
+                            <Control.Text
                                 model=".annualLeave"
                                 id="annualLeave"
                                 name="annualLeave"
                                 className="form-control"
                                 validators={{required, isNumber}}
-                            ></Control.text>
+                            ></Control.Text>
                             <Errors
                                 model=".annualLeave"
                                 show={(field) => field.touched && !field.focus}
@@ -266,13 +266,13 @@ const StaffList = ({ staffs , postStaff, isLoading, err}) => {
                       <Row className="mt-2">
                           <Label htmlFor="overTime" md={3}>Ngày làm thêm</Label>
                           <Col md={9}>
-                            <Control.text
+                            <Control.Text
                                 model=".overTime"
                                 id="overTime"
                                 name="overTime"
                                 className="form-control"
                                 validators={{required, isNumber}}
-                            ></Control.text>
+                            ></Control.Text>
                             <Errors
                                 model=".overTime"
                                 show={(field) => field.touched && !field.focus}

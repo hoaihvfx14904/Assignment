@@ -107,20 +107,20 @@ import { Control, LocalForm, } from "react-redux-form";
                                 <Row className="mt-2">
                                     <Label htmlFor="name" md={3}>Tên</Label>
                                     <Col md={9}>
-                                        <Control.text 
+                                        <Control.Text 
                                             defaultValue={props.staff.name}
                                             model=".name"
                                             id="name"
                                             name="name"
                                             className="form-control" 
                                             
-                                            ></Control.text>
+                                            ></Control.Text>
                                     </Col>
                                 </Row>
                                 <Row className="mt-2">
                                     <Label md={3} htmlFor="doB">Ngày sinh</Label>
                                     <Col md={9}>
-                                        <Control.text
+                                        <Control.Text
                                         defaultValue={props.staff.doB}
                                         type="date"
                                         model=".doB"
@@ -130,14 +130,14 @@ import { Control, LocalForm, } from "react-redux-form";
                                         onChange={(event) =>setdoB(event.target.value)}
                                         className="form-control"
                                        
-                                        ></Control.text>
+                                        ></Control.Text>
                                         
                                     </Col>
                                 </Row>
                                 <Row className="mt-2">
                                     <Label htmlFor="startDate" md={3}>Ngày bắt đầu</Label>
                                     <Col md={9}>
-                                        <Control.text
+                                        <Control.Text
                                             defaultValue={props.staff.startDate}
                                             model=".startDate"
                                             type="date"
@@ -147,7 +147,7 @@ import { Control, LocalForm, } from "react-redux-form";
                                             value={startDate}
                                             onChange={(event) => setstartDate(event.target.value)}
                                            
-                                        ></Control.text>
+                                        ></Control.Text>
                                        
                                     </Col>
                                 </Row>
@@ -173,42 +173,42 @@ import { Control, LocalForm, } from "react-redux-form";
                                 <Row className="mt-2">
                                     <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
                                     <Col md={9}>
-                                        <Control.text
+                                        <Control.Text
                                             defaultValue={props.staff.salaryScale}
                                             model=".salaryScale"
                                             id="salaryScale"
                                             name="salaryScale"
                                             className="form-control"
                                            
-                                        ></Control.text>
+                                        ></Control.Text>
                                        
                                     </Col>
                                 </Row>
                                 <Row className="mt-2">
                                     <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
                                     <Col md={9}>
-                                        <Control.text
+                                        <Control.Text
                                             defaultValue={props.staff.annualLeave}
                                             model=".annualLeave"
                                             id="annualLeave"
                                             name="annualLeave"
                                             className="form-control"
                                            
-                                        ></Control.text>
+                                        ></Control.Text>
                                        
                                     </Col>             
                                 </Row>
                                 <Row className="mt-2">
                                     <Label htmlFor="overTime" md={3}>Ngày làm thêm</Label>
                                     <Col md={9}>
-                                        <Control.text
+                                        <Control.Text
                                             defaultValue={props.staff.overTime}
                                             model=".overTime"
                                             id="overTime"
                                             name="overTime"
                                             className="form-control"
                                            
-                                        ></Control.text>
+                                        ></Control.Text>
                                        
                                     </Col> 
                                 </Row>

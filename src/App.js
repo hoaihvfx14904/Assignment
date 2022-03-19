@@ -1,7 +1,6 @@
 
 import React, { Component} from 'react';
 import Main from './components/MainComponent.js'
-import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { Provider } from 'react-redux';
